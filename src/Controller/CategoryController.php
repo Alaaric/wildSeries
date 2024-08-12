@@ -23,12 +23,15 @@ class CategoryController extends AbstractController
 public function show(string  $categoryName, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response {
 
         $category = $categoryRepository ->findOneBy(['name' => $categoryName]);
+
+        if (!$category) {
+            throw $this->createNotFoundException("Category Not Found with name $categoryName");
+        }
+
         $categoryId = $category->getId();
         $programsByCategory = $programRepository->findByCategory(['category' => $categoryId]);
 
-        if(!$categoryName) {
-            throw $this->createNotFoundException("Category Not Found with name $categoryName");
-        }
+
         return $this->render('category/show.html.twig', ['programs' => $programsByCategory, 'category' => $categoryName]);
     }
 }
