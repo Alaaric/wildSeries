@@ -10,7 +10,7 @@ class ProgramFixtures extends Fixture
 {
     const PROGRAMS = [
         [
-            'title' => 'Walking Dead',
+            'title' => 'Titre 1',
             'synopsis' => 'palu menfou',
             'category' => 'category_Action',
         ],
@@ -97,6 +97,7 @@ class ProgramFixtures extends Fixture
             $program->setTitle($programDefinition['title']);
             $program->setSynopsis($programDefinition['synopsis']);
             $program->setCategory($this->getReference($programDefinition['category']));
+            $this->addReference($programDefinition['title'], $program);
             $manager->persist($program);
         }
 

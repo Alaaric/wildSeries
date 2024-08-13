@@ -7,6 +7,7 @@
         <h2>{{ category }}</h2>
     </article>
     {% for program in programs %}
+        <hr />
         <article>
             <h3><a href={{ path('program_show', {id:program.id}) }}>{{ program.title }}</a></h3>
             <p>{{ program.id }}</p>
