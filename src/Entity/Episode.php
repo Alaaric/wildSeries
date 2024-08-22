@@ -16,7 +16,7 @@ class Episode
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 65535, nullable: true)]
     private ?string $synopsis = null;
 
     #[ORM\Column]
