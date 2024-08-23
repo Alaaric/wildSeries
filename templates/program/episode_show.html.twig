@@ -4,9 +4,11 @@
 
 {% block body %}
     <article>
-        <h1>{{ episode.title }}</h1>
+        <h1> Série: {{ program.title }}</h1>
+        <p>Saison numéro {{ season.number }}</p>
+        <h2>{{ episode.title }}</h2>
         <p>épisode numéro: {{ episode.number }}</p>
-        <p>synopsis: {{ episode.synopsis }}</p>
+        <p>Synopsis: {{ episode.synopsis }}</p>
     </article>
 
 {% endblock %}

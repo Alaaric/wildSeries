@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Episode;
+use App\Entity\Program;
+use App\Entity\Season;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
@@ -24,28 +27,19 @@ class ProgramController extends AbstractController
     }
 
 
-    #[Route('/{id<^[0-9]+$>}', name: 'show')]
-    public function show(int $id, ProgramRepository $programRepository): Response
+    #[Route('/{id}', name: 'show')]
+    public function show(Program $program): Response
     {
 
-        $program = $programRepository->findOneBy(['id' => $id]);
-
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : ' . $id . ' found in program\'s table.'
-            );
-        }
         return $this->render('program/show.html.twig', [
             'program' => $program,
         ]);
 
     }
 
-    #[Route('/{programId<^[0-9]+$>}/season/{seasonId<^[0-9]+$>}', name: 'season_show')]
-    public function showSeason(int $programId, int $seasonId, ProgramRepository $programRepository, SeasonRepository $seasonRepository): Response
+    #[Route('/{program}/season/{season}', name: 'season_show')]
+    public function showSeason(Program $program, Season $season): Response
     {
-        $program = $programRepository->findOneBy(['id' => $programId]);
-        $season = $seasonRepository->findOneBy(['id' => $seasonId]);
         $episodes = $season->getEpisodes();
 
         return $this->render('program/season_show.html.twig', [
@@ -55,12 +49,9 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{programId<^[0-9]+$>}/season/{seasonId<^[0-9]+$>}/{episodeId<^[0-9]+$>}', name: 'episode_show')]
-    public function showEpisode( int $programId, int $seasonId, int $episodeId,ProgramRepository $programRepository, SeasonRepository $seasonRepository,  EpisodeRepository $episodeRepository): Response
+    #[Route('/{program}/season/{season}/{episode}', name: 'episode_show')]
+    public function showEpisode( Program $program, Season $season, Episode $episode): Response
     {
-        $program = $programRepository->findOneBy(['id' => $programId]);
-        $season = $seasonRepository->findOneBy(['id' => $seasonId]);
-        $episode = $episodeRepository->findOneBy(['id' => $episodeId]);
     return $this->render('program/episode_show.html.twig', [
         'program' => $program,
         'season' => $season,

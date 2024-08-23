@@ -8,7 +8,7 @@
         <p>année: {{ season.year }}</p>
         <p>{{ season.description }}</p>
         {% for episode in episodes %}
-            <a href="{{ path('program_episode_show',{programId:program.id, seasonId:season.id, episodeId:episode.id}) }}">{{ episode.number }}</a>
+            <a href="{{ path('program_episode_show',{program:program.id, season:season.id, episode:episode.id}) }}">{{ episode.number }}</a>
         {% endfor %}
     </article>
 
